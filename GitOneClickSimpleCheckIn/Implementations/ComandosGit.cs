@@ -1,6 +1,6 @@
 ﻿namespace GitOneClickSimpleCheckIn
 {
-  public static class GitCommands
+  public static class ComandosGit
   {
     public static string PrimeiroCommit(string comando)
     {
