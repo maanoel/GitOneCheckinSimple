@@ -1,4 +1,6 @@
-﻿namespace GitOneClickSimpleCheckIn
+﻿using System;
+
+namespace GitOneClickSimpleCheckIn
 {
   public static class ComandosGit
   {
@@ -23,6 +25,11 @@
 
     public static string Status() {
      return $@"git status";
+    }
+
+    public  static string Rollback()
+    {
+      return $@"git checkout .";
     }
   }
 }

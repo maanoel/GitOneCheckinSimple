@@ -58,5 +58,15 @@ namespace GitOneClickSimpleCheckIn
     {
       txtGitReturn.Text = cmd.EscreverNoCmd(gitProjectPath, allCommandsForSimpleCheckIn);
     }
+
+    private void button3_Click(object sender, EventArgs e)
+    {
+      if(!validadorEntrada.PathDoGitFoiDefinido() || validadorEntrada.ConfirmaRollback()) return;
+
+      string gitProjectPath = txtPath.Text;
+      string allCommandsForSimpleCheckIn = ComandosGit.Rollback();
+
+      DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
+    }
   }
 }

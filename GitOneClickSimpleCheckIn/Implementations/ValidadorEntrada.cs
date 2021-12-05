@@ -63,5 +63,13 @@ namespace GitOneClickSimpleCheckIn
     {
       return PathDoGitFoiDefinido() && OriginFoiDefinida();
     }
+
+    public bool ConfirmaRollback() 
+    {
+      var retorno =  MessageBox.Show("Are you sure?", "Really?",
+       MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+      return retorno == DialogResult.Yes;
+    }
   }
 }
