@@ -16,57 +16,39 @@ namespace GitOneClickSimpleCheckIn
       this.txtOrigin = txtOrigin;
     }
 
-    public bool PathDoGitFoiDefinido()
+    public void PathDoGitFoiDefinido()
     {
       if(String.IsNullOrEmpty(txtPath.Text))
-      {
-        MessageBox.Show("You need to set path of the git folder.", "Set a path",
-        MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-        return false;
-      }
-
-      return true;
+        throw new PathNaoDefinidoException("You need to set path of the git folder.");
     }
 
-    private bool DescricaoCommitNaoFoiDefinida()
+    private void DescricaoCommitFoiDefinida()
     {
       if(String.IsNullOrEmpty(txtDescription.Text))
-      {
-        MessageBox.Show("You need to set a message of the git commit.", "Set a message",
-        MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-        return false;
-      }
-
-      return true;
+        throw new DescricaoCommitNaoDefinidaException("You need to set a message of the git commit.");
     }
 
-    private  bool OriginFoiDefinida()
+    private void OriginFoiDefinida()
     {
       if(String.IsNullOrEmpty(txtOrigin.Text))
-      {
-        MessageBox.Show("You need to set origin of the git folder.", "Set a origin",
-        MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
-        return false;
-      }
-
-      return true;
+        throw new OrigemNaoDefinidaException("You need to set origin of the git folder.");
     }
 
-    public bool CamposCheckInValidados() {
-      return(PathDoGitFoiDefinido() && DescricaoCommitNaoFoiDefinida());
-    }
-
-    public bool CamposFirstCommitValidados() 
+    public void CamposCheckInValidados()
     {
-      return PathDoGitFoiDefinido() && OriginFoiDefinida();
+      PathDoGitFoiDefinido();
+      DescricaoCommitFoiDefinida();
     }
 
-    public bool ConfirmaRollback() 
+    public void CamposFirstCommitValidados()
     {
-      var retorno =  MessageBox.Show("Are you sure?", "Really?",
+      OriginFoiDefinida();
+      PathDoGitFoiDefinido();
+    }
+
+    public bool ConfirmaRollback()
+    {
+      var retorno = MessageBox.Show("Are you sure?", "Really?",
        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
 
       return retorno == DialogResult.Yes;

@@ -26,47 +26,79 @@ namespace GitOneClickSimpleCheckIn
       cmd.Finalizar();
     }
 
-    private void btCheckIn_Click(object sender, EventArgs e)
-    {
-      if(!validadorEntrada.CamposCheckInValidados()) return;
-      string gitProjectPath = txtPath.Text;
-      string allCommandsForSimpleCheckIn = ComandosGit.Commit(txtDescription.Text);
-
-      DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
-    }
-
-    private void btStatus_Click(object sender, EventArgs e)
-    {
-      if(!validadorEntrada.PathDoGitFoiDefinido()) return;
-      string gitProjectPath = txtPath.Text;
-      string allCommandsForSimpleCheckIn = ComandosGit.Status();
-
-      DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
-    }
-
-    private void button2_Click(object sender, EventArgs e)
-    {
-      if(!validadorEntrada.CamposFirstCommitValidados()) return;
-
-      string gitProjectPath = txtPath.Text;
-      string allCommandsForSimpleCheckIn = ComandosGit.PrimeiroCommit(txtOrigin.Text);
-
-      DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
-    }
-
     private void DispararAcaoCMD(string gitProjectPath, string allCommandsForSimpleCheckIn)
     {
       txtGitReturn.Text = cmd.EscreverNoCmd(gitProjectPath, allCommandsForSimpleCheckIn);
     }
 
+    private void btCheckIn_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        validadorEntrada.CamposCheckInValidados();
+
+        string gitProjectPath = txtPath.Text;
+        string allCommandsForSimpleCheckIn = ComandosGit.Commit(txtDescription.Text);
+
+        DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+    }
+
+    private void btStatus_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        validadorEntrada.PathDoGitFoiDefinido();
+
+        string gitProjectPath = txtPath.Text;
+        string allCommandsForSimpleCheckIn = ComandosGit.Status();
+
+        DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+    }
+
+    private void button2_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        validadorEntrada.CamposFirstCommitValidados();
+
+        string gitProjectPath = txtPath.Text;
+        string allCommandsForSimpleCheckIn = ComandosGit.PrimeiroCommit(txtOrigin.Text);
+
+        DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
+    }
+
     private void button3_Click(object sender, EventArgs e)
     {
-      if(!validadorEntrada.PathDoGitFoiDefinido() || !validadorEntrada.ConfirmaRollback()) return;
+      try
+      {
+        if(validadorEntrada.ConfirmaRollback()) return;
+        validadorEntrada.PathDoGitFoiDefinido();
 
-      string gitProjectPath = txtPath.Text;
-      string allCommandsForSimpleCheckIn = ComandosGit.Rollback();
+        string gitProjectPath = txtPath.Text;
+        string allCommandsForSimpleCheckIn = ComandosGit.Rollback();
 
-      DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
+        DispararAcaoCMD(gitProjectPath, allCommandsForSimpleCheckIn);
+
+      }
+      catch(Exception ex)
+      {
+        MessageBox.Show(ex.Message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+      }
     }
   }
 }
