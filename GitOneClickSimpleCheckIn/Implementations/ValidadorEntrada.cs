@@ -28,12 +28,6 @@ namespace GitOneClickSimpleCheckIn
         throw new DescricaoCommitNaoDefinidaException("You need to set a message of the git commit.");
     }
 
-    private void OriginFoiDefinida()
-    {
-      if(String.IsNullOrEmpty(txtOrigin.Text))
-        throw new OrigemNaoDefinidaException("You need to set origin of the git folder.");
-    }
-
     public void CamposCheckInValidados()
     {
       PathDoGitFoiDefinido();
@@ -44,6 +38,12 @@ namespace GitOneClickSimpleCheckIn
     {
       OriginFoiDefinida();
       PathDoGitFoiDefinido();
+    }
+
+    private void OriginFoiDefinida()
+    {
+      if(String.IsNullOrEmpty(txtOrigin.Text))
+        throw new OrigemNaoDefinidaException("You need to set origin of the git folder.");
     }
 
     public bool ConfirmaRollback()

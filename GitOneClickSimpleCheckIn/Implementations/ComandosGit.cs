@@ -6,9 +6,11 @@ namespace GitOneClickSimpleCheckIn
   {
     public static string PrimeiroCommit(string comando)
     {
-      return $@"git init
+      return $@"
+         echo ""# ASPNETCore2-Parte3-master"" >> README.md
+         git init
          git add README.md
-         git commit - m ""first commit""
+         git commit -m ""first commit""
          git branch -M main
          git remote add origin {comando}
          git push -u origin main";
